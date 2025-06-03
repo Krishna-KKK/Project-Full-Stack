@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SCMXpertlite — Sign Up</title>
+  <style>
+    /* ─── Shared Base & Animations ─── */
+    body {
+      margin:0; padding:0;
+      background: #f4f7fa;
+      font-family: 'Segoe UI', sans-serif;
+      color: #2c3e50;
+    }
+    .card {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      opacity: 0; transform: translateY(30px);
+      animation: slideUp 0.6s forwards ease-out;
+    }
+    @keyframes slideUp {
+      to { opacity:1; transform: translateY(0); }
+    }
+    header {
+      background: linear-gradient(90deg, #34699a 0%, #2c3e50 100%);
+      padding: 16px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      color: #fff;
+    }
+    header::after {
+      content: '';
+      position: absolute; top:0; left:-60%;
+      width: 60%; height:100%;
+      background: rgba(255,255,255,0.3);
+      transform: skewX(-25deg);
+      animation: shine 2.5s infinite;
+    }
+    @keyframes shine {
+      to { left:160%; }
+    }
+
+    form { padding:24px; display:grid; gap:16px; }
+    input, select {
+      padding:10px; font-size:1rem;
+      border:1px solid #cfd8dc; border-radius:6px;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    input:focus, select:focus {
+      outline:none;
+      border-color: #34699a;
+      box-shadow: 0 0 6px rgba(52,105,154,0.4);
+    }
+    button {
+      padding:12px; font-size:1rem;
+      background: #34699a; color:#fff;
+      border:none; border-radius:6px;
+      cursor:pointer;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    h2 { margin:0; font-size:1.5rem; text-align:center; color:#2c3e50; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header><h1>SCMXpertlite</h1></header>
+    <form onsubmit="return handleSignup(event)">
+      <h2>Create Your Account</h2>
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <select id="status" required>
+        <option value="">Select Status</option>
+        <option>Active</option>
+        <option>Inactive</option>
+      </select>
+      <button type="submit">Register</button>
+      <div id="signupMsg" style="text-align:center; color:#e74c3c;"></div>
+    </form>
+  </div>
+
+  <script>
+    function sanitize(str) {
+      const d=document.createElement('div');
+      d.textContent=str; return d.innerHTML;
+    }
+    function handleSignup(e){
+      e.preventDefault();
+      const u=sanitize(username.value.trim()),
+            m=sanitize(email.value.trim()),
+            p=sanitize(password.value),
+            s=sanitize(status.value);
+      signupMsg.textContent = `✔ Registered ${u} as ${s}`;
+      return false;
+    }
+  </script>
+</body>
+</html>
